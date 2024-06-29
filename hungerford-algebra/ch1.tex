@@ -1,0 +1,79 @@
+\subsection{The Axiom of Choice, Order, and Zorn's Lemma}
+
+\begin{exercise}
+    Let $(A,\le)$ be a partially ordered set. $A$ is a \textbf{lattice} if for all $a,b\in A$, the set $\{a,b\}$ has both a greatest lower bound and a least upper bound.
+    \begin{enumerate}[(a)]
+        \item If $S\ne \emptyset$, then $(\mathcal{P}(S),\subseteq)$ is a lattice.
+        \item Give an example of a partially ordered set which is not a lattice.
+        \item Give an example of a lattice with no maximal element and an example of a partially ordered set with 2 maximal elements.
+    \end{enumerate}
+\end{exercise}
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item I don't see why $S\ne\emptyset$ is required. Let $X,Y\subseteq S$. We have 
+        \begin{align*}
+            A\subseteq X\cap Y &\iff A\subseteq X \text{ and } A\subseteq Y \\
+            X\cup Y\subseteq A &\iff X\subseteq A \text{ and } Y\subseteq A, 
+        \end{align*}
+        which shows that greatest lower bounds and least upper bounds exists, thus $(\mathcal{P}(S),\subseteq)$ is a lattice.
+        \item $\{\{0\},\{1\}\}$ ordered by inclusion is not a lattice because $\{\{0\},\{1\}\}$ has no upper bound.
+        \item $(\mathbb{Z},\le)$ has no maximal element, and $\{\{0\},\{1\}\}$ ordered by inclusion has two maximal elements.
+    \end{enumerate}
+\end{solution}
+\hrule
+\begin{exercise}
+    A lattice $(A,\le)$ is called $\textbf{complete}$ if every nonempty subset of $A$ has a least upper bound and a greatest lower bound. If $A$ and $B$ are partially ordered sets, a function $f:A\to B$ is \textbf{order preserving} if $a\le a' \implies f(a)\le f(a')$. Show that any order preserving map from a complete lattice $A$ to itself has a fixed point (an element $a\in A$ such that $f(a) = a$.)
+\end{exercise}
+\begin{solution}
+    Let $(A,\le)$ be a lattice, and let $f:A\to A$ be order preserving. Define $$S := \{a\in A\mid f(a) \ge a\},$$
+    and let $s = \sup S$. Then $s \ge a$ for every $a\in S$, so $f(s) \ge f(a) \ge a$ for all $a\in S$. Therefore, $f(s)$ is an upper bound for $S$, so $f(s) \ge s$. But this means $f(f(s)) \ge f(s)$ so $f(s)\in S$, thus $f(s) \le s$. By antisymmetry, we have $f(s) = s$, so $s$ is a fixed point.
+\end{solution}
+
+\hrule
+\begin{exercise}
+    Exhibit a well ordering of $\mathbb{Q}$.
+\end{exercise}
+\begin{solution}
+    Since $|\mathbb{Q}| = |\mathbb{N}|$, use any bijection from $\mathbb{N}\to\mathbb{Q}$.
+\end{solution}
+
+\hrule
+\begin{exercise}
+    Let $S$ be a set. A \textbf{choice function} of $S$ is a function $f:\mathcal{P}(S)\setminus\{\emptyset\} \to S$ such that $f(A)\in A$ for all nonempty $A\subseteq S$. Show that the Axiom of Choice is equivalent to the statement that every set $S$ has a choice function.
+\end{exercise}
+\begin{solution}
+    $(\implies)$ Assume that the Axiom of Choice holds, and let $S$ be a set. We will consider the collection $(X_i)_{i\in I}$ of nonempty subsets of $S$ (we are using $I = \mathcal{P}(S)\setminus\{\emptyset\}$ and $X_i = i$). Applying the Axiom of Choice, we have $\prod_{i\in I} X_i$ is nonempty, so there is some function $f:I\to\bigcup_{i\in I} X_i$, or equivalently $f:\mathcal{P}(S)\setminus \{\emptyset\} \to S$ such that $f(i)\in X_i = i$ for all nonempty subsets $i$. In other words, $f$ is a choice function of $S$.
+
+    $(\impliedby)$ Assume that every set has a choice function, and let $X = (X_i)_{i\in I}$ be a nonempty collection of nonempty sets. Let $f:X\to\bigcup_{i\in I} X_i$ be the restriction of some choice function of $\bigcup_{i\in I} X_i$ to the domain $X$, so we have $f(X_i) \in X_i$. Letting $\pi:I\to X$ be the map $i\mapsto X_i$, we have
+    $$f\circ \pi \in \prod_{i\in I}X_i.$$
+\end{solution}
+\hrule
+
+\begin{exercise}
+    Let $S$ be the set $\{(x,y)\in \mathbb{R}^2 \mid y\le 0\}$. Define an ordering by $(x_1,y_1) \le (x_2,y_2) \iff x_1 = x_2 \land y_1 \le y_2$. Show that this is a partial order of $S$, and that $S$ has infinitely many maximal elements.
+\end{exercise}
+\begin{solution}
+    The partial order conditions are all trivial. It's also easy to see that maximal points are those of the form $(x,0)$ for $x\in \mathbb{R}$.
+\end{solution}
+\hrule
+
+\begin{exercise}
+    Let $A = \{A_i\mid i\in I\}$ be a nonempty collection of nonempty sets. Show that each projection $\pi_k:\prod_{i\in I} A_i \to A_k$ is surjective.
+\end{exercise}
+\begin{solution}
+    Let $k\in I$, and let $x\in A_k$. By the Axiom of Choice, the product $\displaystyle\prod_{i\in I\setminus\{k\}} A_i$ is nonempty (even if $I = \{k\}$). Let $f$ be an element of this product. Extending the domain of $f$ to $I$, set $f(k) = x$. This extension satisfies $\pi_k(f) = x$, so since $x$ was arbitrary, $\pi_k$ is surjective.
+\end{solution}
+\hrule
+
+\begin{exercise}
+    Let $(A,\le)$ be a linearly ordered set. For $a\in A$, if the set $\{x\in A\mid x > a\}$ has a least element, this is called the \textbf{immediate successor} of $a$. Prove that if $A$ is well ordered, then at most one element of $A$ has no immediate successor. Give an example of a linearly ordered set in which precisely two elements have no immediate successor.
+\end{exercise}
+\begin{solution}
+    We will prove the contrapositive. Suppose that two elements $a,b\in A$ have no immediate successor, and WLOG assume $a < b$. Consider the set $S := \{x\in A\mid x > a\}$. We have $b\in S$, so in particular $S$ is nonempty and has no least element, thus $A$ is not well ordered.
+
+    The set $\{\{0\},\{1\}\}$ ordered by inclusion has no successors.
+\end{solution}
+\hrule
+
+\pagebreak
+\subsection{Cardinal Numbers}
