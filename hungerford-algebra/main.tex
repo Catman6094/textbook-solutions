@@ -2,14 +2,20 @@
 
 \usepackage{amsmath, amsfonts, amssymb, amsthm}
 \usepackage{enumerate}
+\usepackage{showkeys}
 
 \theoremstyle{definition}
 \newtheorem{exercise}{Exercise}[subsection]
+\newtheorem{lemma}{Lemma}[section]
+
 \newenvironment*{solution}{\begin{proof}[Solution]}{\end{proof}}
 
-\includeonly{ch1}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+
+\includeonly{ch0}
 \begin{document}
+    \addtocounter{section}{-1}
     \section{Prerequisites and Preliminaries}
     \addtocounter{subsection}{6}
-    \include{ch1}
+    \include{ch0}
 \end{document}

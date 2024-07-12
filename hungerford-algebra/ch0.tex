@@ -1,0 +1,268 @@
+\subsection{The Axiom of Choice, Order, and Zorn's Lemma}
+
+\begin{exercise}
+    Let $(A,\le)$ be a partially ordered set. $A$ is a \textbf{lattice} if for all $a,b\in A$, the set $\{a,b\}$ has both a greatest lower bound and a least upper bound.
+    \begin{enumerate}[(a)]
+        \item If $S\ne \emptyset$, then $(\mathcal{P}(S),\subseteq)$ is a lattice.
+        \item Give an example of a partially ordered set which is not a lattice.
+        \item Give an example of a lattice with no maximal element and an example of a partially ordered set with 2 maximal elements.
+    \end{enumerate}
+\end{exercise}
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item I don't see why $S\ne\emptyset$ is required. Let $X,Y\subseteq S$. We have 
+        \begin{align*}
+            A\subseteq X\cap Y &\iff A\subseteq X \text{ and } A\subseteq Y \\
+            X\cup Y\subseteq A &\iff X\subseteq A \text{ and } Y\subseteq A, 
+        \end{align*}
+        which shows that greatest lower bounds and least upper bounds exists, thus $(\mathcal{P}(S),\subseteq)$ is a lattice.
+        \item $\{\{0\},\{1\}\}$ ordered by inclusion is not a lattice because $\{\{0\},\{1\}\}$ has no upper bound.
+        \item $(\mathbb{Z},\le)$ has no maximal element, and $\{\{0\},\{1\}\}$ ordered by inclusion has two maximal elements.
+    \end{enumerate}
+\end{solution}
+\hrule
+\begin{exercise}
+    A lattice $(A,\le)$ is called $\textbf{complete}$ if every nonempty subset of $A$ has a least upper bound and a greatest lower bound. If $A$ and $B$ are partially ordered sets, a function $f:A\to B$ is \textbf{order preserving} if $a\le a' \implies f(a)\le f(a')$. Show that any order preserving map from a complete lattice $A$ to itself has a fixed point (an element $a\in A$ such that $f(a) = a$.)
+\end{exercise}
+\begin{solution}
+    Let $(A,\le)$ be a lattice, and let $f:A\to A$ be order preserving. Define $$S := \{a\in A\mid f(a) \ge a\},$$
+    and let $s = \sup S$. Then $s \ge a$ for every $a\in S$, so $f(s) \ge f(a) \ge a$ for all $a\in S$. Therefore, $f(s)$ is an upper bound for $S$, so $f(s) \ge s$. But this means $f(f(s)) \ge f(s)$ so $f(s)\in S$, thus $f(s) \le s$. By antisymmetry, we have $f(s) = s$, so $s$ is a fixed point.
+\end{solution}
+
+\hrule
+\begin{exercise}
+    Exhibit a well ordering of $\mathbb{Q}$.
+\end{exercise}
+\begin{solution}
+    Since $|\mathbb{Q}| = |\mathbb{N}|$, use any bijection from $\mathbb{N}\to\mathbb{Q}$.
+\end{solution}
+
+\hrule
+\begin{exercise}
+    Let $S$ be a set. A \textbf{choice function} of $S$ is a function $f:\mathcal{P}(S)\setminus\{\emptyset\} \to S$ such that $f(A)\in A$ for all nonempty $A\subseteq S$. Show that the Axiom of Choice is equivalent to the statement that every set $S$ has a choice function.
+\end{exercise}
+\begin{solution}
+    $(\implies)$ Assume that the Axiom of Choice holds, and let $S$ be a set. We will consider the collection $(X_i)_{i\in I}$ of nonempty subsets of $S$ (we are using $I = \mathcal{P}(S)\setminus\{\emptyset\}$ and $X_i = i$). Applying the Axiom of Choice, we have $\prod_{i\in I} X_i$ is nonempty, so there is some function $f:I\to\bigcup_{i\in I} X_i$, or equivalently $f:\mathcal{P}(S)\setminus \{\emptyset\} \to S$ such that $f(i)\in X_i = i$ for all nonempty subsets $i$. In other words, $f$ is a choice function of $S$.
+
+    $(\impliedby)$ Assume that every set has a choice function, and let $X = (X_i)_{i\in I}$ be a nonempty collection of nonempty sets. Let $f:X\to\bigcup_{i\in I} X_i$ be the restriction of some choice function of $\bigcup_{i\in I} X_i$ to the domain $X$, so we have $f(X_i) \in X_i$. Letting $\pi:I\to X$ be the map $i\mapsto X_i$, we have
+    $$f\circ \pi \in \prod_{i\in I}X_i.$$
+\end{solution}
+\hrule
+
+\begin{exercise}
+    Let $S$ be the set $\{(x,y)\in \mathbb{R}^2 \mid y\le 0\}$. Define an ordering by $(x_1,y_1) \le (x_2,y_2) \iff x_1 = x_2 \land y_1 \le y_2$. Show that this is a partial order of $S$, and that $S$ has infinitely many maximal elements.
+\end{exercise}
+\begin{solution}
+    The partial order conditions are all trivial. It's also easy to see that maximal points are those of the form $(x,0)$ for $x\in \mathbb{R}$.
+\end{solution}
+\hrule
+
+\begin{exercise}
+    Let $A = \{A_i\mid i\in I\}$ be a nonempty collection of nonempty sets. Show that each projection $\pi_k:\prod_{i\in I} A_i \to A_k$ is surjective.
+\end{exercise}
+\begin{solution}
+    Let $k\in I$, and let $x\in A_k$. By the Axiom of Choice, the product $\displaystyle\prod_{i\in I\setminus\{k\}} A_i$ is nonempty (even if $I = \{k\}$). Let $f$ be an element of this product. Extending the domain of $f$ to $I$, set $f(k) = x$. This extension satisfies $\pi_k(f) = x$, so since $x$ was arbitrary, $\pi_k$ is surjective.
+\end{solution}
+\hrule
+
+\begin{exercise}
+    Let $(A,\le)$ be a linearly ordered set. For $a\in A$, if the set $\{x\in A\mid x > a\}$ has a least element, this is called the \textbf{immediate successor} of $a$. Prove that if $A$ is well ordered, then at most one element of $A$ has no immediate successor. Give an example of a linearly ordered set in which precisely two elements have no immediate successor.
+\end{exercise}
+\begin{solution}
+    We will prove the contrapositive. Suppose that two elements $a,b\in A$ have no immediate successor, and WLOG assume $a < b$. Consider the set $S := \{x\in A\mid x > a\}$. We have $b\in S$, so in particular $S$ is nonempty and has no least element, thus $A$ is not well ordered.
+
+    The set $\{\{0\},\{1\}\}$ ordered by inclusion has no successors.
+\end{solution}
+\hrule
+
+\pagebreak
+\subsection{Cardinal Numbers}
+
+\begin{exercise}
+    Let $I_0 = \emptyset$, and for each $n\in\mathbb{N}^\times$ let $I_n = \{1,2,\dots,n\}$.
+    \begin{enumerate}[(a)]
+        \item $I_n$ is not equipollent with any of it's proper subsets.
+        \item $I_m$ is equipollent to a subset of $I_n$ if and only if $m \le n$
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item We will prove this by induction. The base case $I_0$ is vacuously confirmed since $I_0 = \emptyset$ has no proper subsets. Now suppose that $I_k$ is not equipollent to any of it's proper subsets for any $k\le n$. Assume for a contradiction that there was some proper subset $S\subset I_{n+1}$ with a bijection $f:I_{n+1}\to S$. We must have $n+1\in f(I_n)$, as otherwise the bijection $f|_{I_n}:I_n\to f(I_n)$ would exist, and the inductive hypothesis would imply $f(I_n) = I_n$, from which it quickly follows that $S = I_{n+1}$ is not a proper subset. With this in mind, consider the function $g:I_n\to S\setminus\{n+1\}$ defined by
+        $$g(x) = \begin{cases}
+            f(n+1) & x = f^{-1}(n+1) \\
+            f(x) & \text{otherwise.}
+        \end{cases}$$
+        I will show $g$ is a bijection. If $x,y\in I_n$ such that $x\ne y$, then $f(x)\ne f(y)\ne f(n+1)$, so $g(x)\ne g(y)$ and $g$ is injective.
+
+        To show $g$ is surjective, pick a $z\in S\setminus\{n+1\}$. Since $z\ne n+1$, we know $f^{-1}(z)\ne f^{-1}(n+1)$, so $g(f^{-1}(z)) = z$, therefore $g$ is surjective, and also bijective.
+        
+        Since $S\setminus\{n+1\}\subset I_n$, this is a contradiction, thus $I_{n+1}$ is not equipollent to any of it's proper subsets. By induction, $I_n$ is not equipollent to any of it's proper subsets for any $n\in\mathbb{N}$.
+        \item If $m\le n$, then $I_m$ is equipollent to itself. Now suppose that $m > n$. Any subset of $I_n$ is also a proper subset of $I_m$, thus there can be no equipollence as required.
+    \end{enumerate}
+\end{solution}
+\hrule
+
+\begin{exercise}
+    Every infinite set is equipollent to one of it's proper subsets.
+\end{exercise}
+\begin{solution}
+    Let $A$ be an infinite set, and let $f:\mathbb{N}\to A$ be injective. Define $g:A\to A$ as
+    $$g(a) = \begin{cases}
+        f(f^{-1}(a) + 1) & a\in f(\mathbb{N}) \\
+        a & \text{otherwise.}
+    \end{cases}$$
+    I will show that $g$ is injective. Let $a,b\in A$ such that $g(a) = g(b)$. It's clear that $a\in f(\mathbb{N}) \iff b\in f(\mathbb{N})$. If $a,b\notin f(\mathbb{N})$, then obviously $a = b = g(a)$. Otherwise, if $a,b\in f(\mathbb{N})$, then we have $$f(f^{-1}(a)+1) = f(f^{-1}(b)+1).$$
+    Some cancellation yields $a = b$. Finally, note that $f(0)\notin g(A)$, so $g(A)$ is a proper subset of $A$ equipollent to $A$.
+\end{solution}
+\hrule
+
+\begin{exercise}
+    \begin{enumerate}[(a)]
+        \item $\mathbb{Z}\sim\mathbb{N}$
+        \item $\mathbb{Q}\sim\mathbb{N}$
+    \end{enumerate}
+\end{exercise}
+\begin{solution}
+    \begin{enumerate}[(a)]
+        \item $n\mapsto(-1)^n\floor{\frac{n+1}{2}}$ is a bijection from $\mathbb{N}\to\mathbb{Z}$.
+        \item It suffices to show $\mathbb{Q}\sim\mathbb{Z}$. By inclusion functions, we have injections from $\mathbb{Z}\to\mathbb{Q}\to\mathbb{Z}^2$, so since $\mathbb{Z}^2\sim\mathbb{Z}$, we have $\mathbb{Q}\sim\mathbb{Z}$.
+    \end{enumerate}
+\end{solution}
+\hrule
+
+\begin{exercise}
+    If $A,A',B,B'$ are sets such that $|A|=|A'|$ and $|B|=|B'|$, then $|A\times B| = |A'\times B'|$. If in addition $A\cap B = A'\cap B' = \emptyset$, then $|A\cup B| = |A'\cup B'|$.
+\end{exercise}
+\begin{solution}
+    Assume $A,A',B,B'$ are sets such that $|A|=|A'|$ and $|B|=|B'|$. Let $f,g$ be bijections from $A\to A'$ and $B\to B'$ respectively. Define
+    $$h:A\times B\to A'\times B',\qquad h(a,b) = (f(a),g(b)).$$
+    That $h$ is a bijection follows from the fact that $f$ and $g$ are bijections, thus $|A\times B| = |A'\times B'|$.
+
+    Now assume additionally that $A\cap B = A'\cap B' = \emptyset$. Redefine $h$ as
+    $$h:A\cup B\to A'\cup B',\qquad h(x) = \begin{cases}
+        f(x) & x\in A \\
+        g(x) & x\in B.
+    \end{cases}$$
+    This is well defined since $A$ and $B$ are disjoint. That $h$ is bijective is easy to confirm, so $|A\cup B| = |A'\cup B'|$.
+\end{solution}
+\hrule
+
+\begin{exercise}
+    For all cardinal numbers $\alpha,\beta,\gamma$,
+    \begin{enumerate}[(a)]
+        \item $\alpha + \beta = \beta + \alpha$ and $\alpha\beta = \beta\alpha$.
+        \item $(\alpha + \beta) + \gamma = \alpha + (\beta + \gamma)$ and $(\alpha\beta)\gamma = \alpha(\beta\gamma)$.
+        \item $\alpha(\beta + \gamma) = \alpha\beta + \alpha\gamma$.
+        \item $\alpha + 0 = \alpha$ and $\alpha 1 = \alpha$.
+        \item If $\alpha\ne 0$, then there is no $\beta$ such that $\alpha + \beta = 0$. If $\alpha\ne 1$, then there is no $\beta$ such that $\alpha\beta = 1$.
+    \end{enumerate}
+\end{exercise}
+\begin{solution}
+    Parts (a)-(d) follow from basic set theory. Assume $A,B,C$ are disjoint with cardinalities $\alpha,\beta,\gamma$ respectively.
+
+    Assume $\alpha\ne 0$, so that there is some $x\in A$. We also have $x\in A\cup B$, so $|A\cup B|\ne 0$.
+
+    Assume $\alpha\ne 1$. If $\alpha=0$, then $\alpha\beta = 0$. Otherwise, let $x,y\in A$ such that $x\ne y$. If $\beta = 0$, then $\alpha\beta = 0$, so assume $z\in B$. Then $(x,z)$ and $(y,z)$ are in $A\times B$, so $\alpha\beta\ne 1$.
+\end{solution}
+\hrule
+
+\begin{exercise}
+    Let $I_n$ be as in Exercise 1. Prove that if $A\sim I_m$ and $B\sim I_n$ and $A\cap B = \emptyset$, then $A\cup B\sim I_{m+n}$ and $A\times B\sim I_{mn}$.
+\end{exercise}
+\begin{solution}
+    Let $m,n\in\mathbb{N}$, and let $A\sim I_m$ and $B\sim I_n$ be such that $A\cap B=\emptyset$. The result is clear if $m=0$ or $n=0$, so assume this is not the case. Let $f:I_m\to A$ and $g:I_n\to B$ be bijections. Define
+    $$h_1:I_{m+n}\to A\cup B,\qquad h_1(k) = \begin{cases}
+        f(k) & k \le m \\
+        g(k-m) & k > m.
+    \end{cases}$$
+    It's not difficult to show that $h_1$ is bijective, thus $A\cup B\sim I_{m+n}$. Define
+    $$h_2:A\times B\to I_{mn},\qquad h_2(a,b) = f^{-1}(a) + m(g^{-1}(b)-1).$$
+    This is also bijective, so $A\times B\sim I_{mn}$.
+\end{solution}
+\hrule
+
+\begin{exercise}
+    If $A\sim A',B\sim B'$, and $f:A\to B$ is injective, then there exists an injective function from $A'\to B'$.
+\end{exercise}
+\begin{solution}
+    Compose maps between $A'\to A\to B\to B'$.
+\end{solution}
+\hrule
+
+\begin{exercise}
+    An infinite subset of a denumerable set is denumerable.
+\end{exercise}
+\begin{solution}
+    Let $S\subseteq\mathbb{N}$ be infinite, and note that clearly $|S|\le|\mathbb{N}|$. Define $S_k$ recursively as
+    $$S_0 = S,\qquad S_{n+1} = S_n\setminus\{\min (S_n)\}.$$
+    Also, let $f:\mathbb{N}\to S$ be defined so that $f(n) = \min(S_n)$. For all $n\in\mathbb{N}$, we have $f(n) < f(n+1)$, thus $f$ is injective and $|\mathbb{N}|\le |S|$. By the Schroeder-Bernstein theorem, we have $S\sim\mathbb{N}$.
+\end{solution}
+\hrule
+
+\begin{exercise}
+    $|\mathbb{R}| > |\mathbb{N}|$
+\end{exercise}
+\begin{solution}
+    Classic diagonalization.
+\end{solution}
+\hrule
+
+\begin{exercise}
+    If $\alpha,\beta$ are cardinal numbers, define $\alpha^\beta$ to be the cardinality of the set of all functions $B\to A$, where $A,B$ are sets of cardinality $\alpha,\beta$ respectively.
+    \begin{enumerate}[(a)]
+        \item $\alpha^\beta$ is independent of the choice of $A$ and $B$.
+        \item $\alpha^{\beta+\gamma} = \alpha^\beta \alpha^\gamma;\quad (\alpha\beta)^\gamma = \alpha^\gamma \beta^\gamma;\quad \alpha^{\beta\gamma} = (\alpha^\beta)^\gamma$.
+        \item If $\alpha\le \beta$, then $\alpha^\gamma\le \beta^\gamma$.
+        \item If $\alpha,\beta$ are finite and greater than $1$, and $\gamma$ is infinite, then $\alpha^\gamma = \beta^\gamma$.
+        \item For every finite cardinal $n$, $\alpha^n = \underbrace{\alpha\alpha\dots\alpha}_{\text{$n$ factors}}$.
+        \item $|\mathcal{P}(A)| = 2^{|A|}$
+    \end{enumerate}
+\end{exercise}
+\begin{solution} Let $A,B,C$ be disjoint sets of cardinalities $\alpha,\beta,\gamma$ respectively.
+    \begin{enumerate}[(a)]
+        \item Suppose $A\sim A',B\sim B'$, and let $\varphi_A:A\to A'$ and $\varphi_B:B\to B'$ be bijections. Define $f:A^B\to A'^{B'}$ as
+        $$f(h) = \phi_A\circ h\circ\phi_B^{-1}.$$
+        It can be shown that $H$ is bijective, so the definition of exponentiation is well defined.
+        \item We have the following bijective maps:
+        \begin{align*}
+            A^{B\cup C}\to A^B\times A^C &,\qquad f\mapsto (f|_B,f|_C) \\
+            (A\times B)^C\to A^C\times B^C &,\qquad f\mapsto (\pi_1\circ f, \pi_2\circ f) \\
+            A^{B\times C}\to (A^B)^C &,\qquad f\mapsto (c\mapsto(b\mapsto f(b,c)))
+        \end{align*}
+        \item Assume $\alpha\le\beta$, so there is some injection $\iota:A\to B$. Define
+        $$f:A^C\to B^C,\qquad f(h) = \iota\circ h.$$
+        If $f(g) = f(h)$, then $\iota\circ g = \iota\circ h$, so $g = h$. Therefore, $f$ is an injection and $\alpha^\gamma \le \beta^\gamma$.
+        \item Assume $\alpha,\beta > 1$ are finite and $\gamma$ is infinite. Then $$\alpha^\gamma \le (2^{\aleph_0})^\gamma = 2^{\aleph_0\gamma} = 2^{\gamma},$$
+        so $\alpha^\gamma = \beta^\gamma = 2^\gamma$.
+        Note that we had $\aleph_0\gamma = \gamma$ because $\aleph_0\le\gamma$ and $\gamma$ is infinite.
+        \item Since $\alpha^1 = \alpha$, we can use $(b)$ repeatedly in an induction argument.
+        \item The mapping
+        $$2^A\to \mathcal{P}(A),\qquad h\mapsto \{x\in A\mid h(x) = 1\}$$
+        is bijective.
+    \end{enumerate}
+\end{solution}
+\hrule
+
+\vspace{1em}
+The following lemma will be used for the next two exercises
+\begin{lemma}\label{lem:card-union}
+    If $|A_i| \le \alpha$ for each $i\in I$, then $\left|\bigcup_{i\in I}A_i\right|\le \alpha|I|$.
+\end{lemma}
+\begin{proof}
+    If $|A| = \alpha$, we have $$\left|\bigcup_{i\in I}A_i\right| \le \left|\bigcup_{i\in I}(\{i\}\times A_i)\right| \le \left|\bigcup_{i\in I}(\{i\}\times A)\right| = |I\times A| = \alpha|I|.$$
+    Note that the first inequality requires the Axiom of Choice.
+\end{proof}
+\hrule
+
+\begin{exercise}
+    If $I$ is an infinite set and for each $i\in I$, $A_i$ is finite, then $\left|\bigcup_{i\in I}A_i\right| \le |I|$.
+\end{exercise}
+\begin{solution}
+    We have $|A_i| \le \aleph_0$ for each $i\in I$, so by Lemma \ref{lem:card-union}, we have $$\left|\bigcup_{i\in I}A_i\right| \le \aleph_0|I| = |I|.$$
+\end{solution}
+\hrule
+
+\begin{exercise}
+    This is just Lemma \ref{lem:card-union}
+\end{exercise}
