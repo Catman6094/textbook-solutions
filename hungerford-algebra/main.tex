@@ -5,17 +5,22 @@
 \usepackage{showkeys}
 
 \theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[subsection]
-\newtheorem{lemma}{Lemma}[section]
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{lemma}{Lemma}[part]
 
 \newenvironment*{solution}{\begin{proof}[Solution]}{\end{proof}}
 
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\renewcommand{\thepart}{\arabic{part}}
+
+
 
 \includeonly{ch0}
 \begin{document}
-    \addtocounter{section}{-1}
-    \section{Prerequisites and Preliminaries}
-    \addtocounter{subsection}{6}
+    \addtocounter{part}{-1}
+    \part{Prerequisites and Preliminaries}
+    \addtocounter{section}{6}
     \include{ch0}
+    \part{Groups}
+    \include{ch1}
 \end{document}
